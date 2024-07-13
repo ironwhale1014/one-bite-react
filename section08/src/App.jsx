@@ -2,7 +2,7 @@ import './App.css'
 import Header from "./components/Header.jsx";
 import Editor from "./components/Editor.jsx";
 import List from "./components/List.jsx";
-import {useCallback, useReducer, useRef} from "react";
+import {createContext, useCallback, useMemo, useReducer, useRef} from "react";
 
 const mockData = [{
     id: 0, isDone: false, content: "Study react", date: new Date().getTime()
@@ -24,17 +24,16 @@ const reducer = (state, action) => {
         case "UPDATE":
             return state.map((item) => (item.id === action.targetId ? {...item, isDone: !item.isDone} : item));
     }
-
-
 }
 
+// export const TodoContext = createContext();
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function App() {
 
     const [todos, dispatch] = useReducer(reducer, mockData)
     const idRef = useRef(3);
-
-    console.log(todos)
 
     const onCreate = (content) => {
         const newTodos = {
@@ -49,16 +48,24 @@ function App() {
 
 
     const onUpdate = useCallback((targetId) => {
-
-        console.log(targetId);
         dispatch({type: "UPDATE", targetId: targetId});
     }, [])
 
 
+    const memorizedDispatch = useMemo(() => {
+        return {
+            onCreate, onUpdate, onDelete
+        }
+    }, []);
+
     return (<div className="App">
         <Header/>
-        <Editor onCreate={onCreate}/>
-        <List todos={todos} onUpdate={onUpdate} onDelete={onDelete}/>
+        <TodoStateContext.Provider value={todos}>
+            <TodoDispatchContext.Provider value={memorizedDispatch}>
+                <Editor/>
+                <List/>
+            </TodoDispatchContext.Provider>
+        </TodoStateContext.Provider>
     </div>)
 }
 

@@ -1,7 +1,11 @@
 import "./Editor.css"
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
+import {TodoDispatchContext} from "../App.jsx";
 
-const Editor = ({onCreate}) => {
+const Editor = () => {
+
+
+    const {onCreate} = useContext(TodoDispatchContext);
 
     const [content, setContent] = useState('');
     const contentRef = useRef(null);
@@ -11,7 +15,7 @@ const Editor = ({onCreate}) => {
     }
 
     const onKeyDown = (e) => {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             onSubmit();
         }
     }
