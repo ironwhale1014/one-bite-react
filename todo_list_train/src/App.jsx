@@ -23,6 +23,8 @@ const reducer = (state, action) => {
             return [action.data, ...state];
         case "DELETE":
             return state.filter(todo => todo.id !== action.id);
+        case "UPDATE":
+            return state.map(todo => todo.id === action.id ? {...todo, isDone: !todo.isDone} : todo);
     }
 }
 
@@ -31,26 +33,27 @@ function App() {
     const [todos, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(3);
 
-    const onCreate = (content) => {
+    const onCreate = useCallback((content) => {
         console.log(todos);
         const newTodos = {
-            id: idRef.current++,
-            isDone: false,
-            content: content,
-            date: new Date().getTime()
+            id: idRef.current++, isDone: false, content: content, date: new Date().getTime()
         }
         dispatch({type: "CREATE", data: newTodos});
 
         // setTodos([newTodos, ...todos]);
-    }
+    }, []);
+
 
     const onDelete = useCallback((id) => {
         dispatch({type: "DELETE", id: id});
     }, [])
 
+    const onUpdate = useCallback((id) => {
+        dispatch({type: "UPDATE", id: id});
+    }, [])
 
     const memorizedDispatch = useMemo(() => {
-        return {onCreate, onDelete}
+        return {onCreate, onDelete, onUpdate}
     }, []);
 
 
