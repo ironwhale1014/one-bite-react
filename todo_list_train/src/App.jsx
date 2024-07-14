@@ -2,7 +2,7 @@ import './App.css'
 import Header from "./component/Header.jsx";
 import Editor from "./component/Editor.jsx";
 import List from "./component/List.jsx";
-import {createContext, useMemo, useReducer, useRef, useState} from "react";
+import {createContext, useCallback, useMemo, useReducer, useRef} from "react";
 
 export const ContextStateData = createContext();
 export const ContextDispatchData = createContext();
@@ -17,16 +17,17 @@ const mockData = [{
 
 
 const reducer = (state, action) => {
-    console.log("state",state)
+    console.log("state", state)
     switch (action.type) {
         case "CREATE":
             return [action.data, ...state];
+        case "DELETE":
+            return state.filter(todo => todo.id !== action.id);
     }
 }
 
 function App() {
 
-    // const [todos, setTodos] = useState(mockData);
     const [todos, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(3);
 
@@ -43,8 +44,13 @@ function App() {
         // setTodos([newTodos, ...todos]);
     }
 
+    const onDelete = useCallback((id) => {
+        dispatch({type: "DELETE", id: id});
+    }, [])
+
+
     const memorizedDispatch = useMemo(() => {
-        return {onCreate}
+        return {onCreate, onDelete}
     }, []);
 
 

@@ -31,7 +31,7 @@ const Editor = () => {
     }
 
     return (<div className="editor">
-        <input placeholder="새로운 할일을 입력" ref={contentRef} value={content} onChange={onChange} onKeyDown={onKeyDown}/>
+        <input placeholder="새로운 할일을 입력" ref={contentRef} value={content} onChange={onChange} onKeyDown={onKeyDown} />
         <button onClick={onSubmit}>추가</button>
     </div>);
 }
