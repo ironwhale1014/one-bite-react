@@ -15,25 +15,40 @@ const mockData = [{
     id: 2, isDone: false, content: "play game", date: new Date().getTime()
 },];
 
+
+const reducer = (state, action) => {
+    console.log("state",state)
+    switch (action.type) {
+        case "CREATE":
+            return [action.data, ...state];
+    }
+}
+
 function App() {
 
-    const [todos, setTodos] = useState(mockData);
+    // const [todos, setTodos] = useState(mockData);
+    const [todos, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(3);
 
     const onCreate = (content) => {
+        console.log(todos);
         const newTodos = {
             id: idRef.current++,
             isDone: false,
             content: content,
             date: new Date().getTime()
         }
-        setTodos([newTodos, ...todos]);
+        dispatch({type: "CREATE", data: newTodos});
+
+        // setTodos([newTodos, ...todos]);
     }
 
     const memorizedDispatch = useMemo(() => {
         return {onCreate}
     }, []);
 
+
+    console.log(todos)
     return (<div className="App">
         <Header/>
         <ContextStateData.Provider value={todos}>
