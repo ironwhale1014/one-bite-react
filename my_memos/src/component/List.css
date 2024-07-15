@@ -1,0 +1,21 @@
+.list .items{
+    display: flex;
+    flex-direction: column;
+    gap:20px
+}
+
+.list .tbl_head {
+    display: flex;
+}
+
+.list .tbl_head .memo {
+    flex: 1;
+}
+
+.list .tbl_head .date {
+    width: 80px;
+}
+
+.list .tbl_head .isActive{
+    width: 60px;
+}
