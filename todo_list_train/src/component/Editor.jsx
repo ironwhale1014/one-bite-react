@@ -1,39 +1,35 @@
 import "./Editor.css"
 import {useContext, useRef, useState} from "react";
-import {ContextDispatchData} from "../App.jsx";
+import {DispatchContext} from "../App.jsx";
 
 const Editor = () => {
 
-    const {onCreate} = useContext(ContextDispatchData)
-
+    const {onCreate} = useContext(DispatchContext)
     const [content, setContent] = useState("");
-    const contentRef = useRef(null);
+    const focusRef = useRef(null);
 
 
-    const onChange = (e) => {
+    const getContent = (e) => {
         setContent(e.target.value);
     }
 
 
     const onSubmit = () => {
+
         if (content === "") {
-            contentRef.current.focus();
+            focusRef.current.focus();
             return;
         }
-        onCreate(content);
+        onCreate(content)
         setContent("");
     }
 
-    const onKeyDown = (e) => {
-        if (e.key === "Enter") {
-            onSubmit();
-        }
-    }
-
-    return (<div className="editor">
-        <input placeholder="새로운 할일을 입력" ref={contentRef} value={content} onChange={onChange} onKeyDown={onKeyDown} />
-        <button onClick={onSubmit}>추가</button>
-    </div>);
+    return (
+        <div className="editor">
+            <input placeholder="새로운 Todo..." value={content} ref={focusRef} onChange={getContent}/>
+            <button onClick={onSubmit}>추가</button>
+        </div>
+    );
 }
 
 export default Editor;

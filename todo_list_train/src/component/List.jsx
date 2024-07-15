@@ -1,20 +1,40 @@
 import "./List.css"
-import TodoItem from "./TodoItem.jsx";
-import {useContext} from "react";
-import {ContextStateData} from "../App.jsx";
+import TodoCard from "./TodoCard.jsx";
+import {useCallback, useContext, useState} from "react";
+import {StateContext} from "../App.jsx";
 
 const List = () => {
 
-    const todos = useContext(ContextStateData);
+    const todos = useContext(StateContext);
+    const [search, setSearch] = useState("");
 
 
-    return (<div className="list">
-        <h4>오늘의 할일🌱</h4>
-        <input placeholder="검색어를 입력하세요"/>
-        <div className="todos-wrapper">
-            {todos.map((item) => <TodoItem key={item.id} {...item}/>)}
-        </div>
-    </div>);
+    const onSearch = (e) => {
+        setSearch(e.target.value);
+    }
+
+    const getFilteredTodos = () => {
+        if (search === "") {
+            return todos;
+        }
+        return todos.filter((todo) => {
+            return todo.content.toLowerCase().includes(search.toLowerCase());
+        })
+    }
+
+    const fiteredTodos = getFilteredTodos();
+
+    return (
+        <div className="List">
+            <h4>ToDo List🌱</h4>
+            <input placeholder="검색어를 입력하세요" onChange={onSearch}/>
+            <div className="wrapper-todos">
+
+                {fiteredTodos.map((todo) => {
+                    return <TodoCard key={todo.id} {...todo} />;
+                })}
+
+            </div>
+        </div>);
 }
-
 export default List;

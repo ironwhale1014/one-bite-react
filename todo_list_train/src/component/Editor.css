@@ -3,18 +3,17 @@
     gap: 10px;
 }
 
-.editor > input {
-    flex: 1;
+.editor >input {
     padding: 15px;
+    flex: 1;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
-.editor > button {
-    color: white;
-    background-color: rgb(37, 147, 225);
+.editor > button{
+    background-color: deepskyblue;
     width: 80px;
     border: none;
-    border-radius: 10px;
-    cursor: pointer;
+    border-radius: 5px;
+    color: white;
 }

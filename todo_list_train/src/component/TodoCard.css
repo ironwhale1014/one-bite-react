@@ -1,0 +1,27 @@
+.todo-card {
+    display: flex;
+    gap:20px;
+    align-items: center;
+    border-bottom: 1px gray solid;
+    padding-bottom: 20px;
+}
+
+.todo-card input {
+    width:20px
+}
+
+.todo-card .content {
+    flex:1;
+}
+
+.todo-card .date {
+    font-size: 14px;
+    color: grey;
+}
+
+.todo-card .delete{
+    border: none;
+    color: grey;
+    border-radius: 5px;
+    padding: 5px ;
+}
