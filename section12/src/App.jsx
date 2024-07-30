@@ -1,56 +1,78 @@
 import './App.css'
-import {Link, Route, Routes, useNavigate,} from "react-router-dom";
+import {Route, Routes,} from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Diary from "./pages/Diary.jsx";
 import New from "./pages/New.jsx";
 import Notfound from "./pages/Notfound.jsx";
-import {getEmotionImage} from "./util/get-emotion-image.jsx";
-import Button from "./components/Button.jsx";
-import Header from "./components/Header.jsx";
+import Edit from "./pages/Edit.jsx";
+import {createContext, useContext, useReducer, useRef} from "react";
+
+const mockData = [{
+    id: 1, createDate: new Date().getTime(), content: "1번 일기입니다.", emotionId: 1
+}, {
+    id: 2, createDate: new Date().getTime(), content: "2번 일기입니다.", emotionId: 2
+},]
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case "CREATE" :
+            return [action.data, ...state];
+        case "UPDATE" :
+            return state.map((item) => String(item.id) === String(action.data.id) ? action.data : item);
+        case "DELETE" :
+            return state.filter((item) => String(item.id) !== String(action.data.id));
+        default :
+            return state;
+    }
+}
+
+const DiaryStateContext = createContext();
+const DiaryDispatchContext = createContext();
 
 
 function App() {
 
-    const nav = useNavigate();
-    const onClick = () => {
-        nav("/new");
+    const [data, dispatch] = useReducer(reducer, mockData);
+
+    const idRef = useRef(3);
+
+    const onCreate = (createDate, emotionId, content) => {
+        dispatch({
+            type: "CREATE", data: {
+                id: idRef.current++, createDate: createDate, content: content, emotionId: emotionId,
+            }
+        })
+    };
+
+    const onUpdate = (id, createDate, emotionId, content) => {
+        dispatch({
+            type: "UPDATE", data: {
+                id: id, createDate: createDate, content: content, emotionId: emotionId,
+            }
+        });
     }
 
-    return (<>
-        <Header
-            title={"Header"}
-            leftChild={<Button text={"Left"}/>}
-            rightChild={<Button text={"Right"}/>}/>
-        <Button text={"123"}
-                onClick={() => {
-                    console.log("123번 버튼 클릭");
-                }}
-        />
-        <Button text={"123"}
-                onClick={() => {
-                    console.log("123번 버튼 클릭");
-                }}
-                type={"NEGATIVE"}
-        />
-        <Button text={"123"}
-                onClick={() => {
-                    console.log("123번 버튼 클릭");
-                }}
-                type={"POSITIVE"}
-        />
-        <div>
-            <Link to='/'>Home</Link>
-            <Link to='/New'>New</Link>
-            <Link to='/Diary'>Diary</Link>
-        </div>
-        <button onClick={onClick}>go to new page</button>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/new" element={<New/>}/>
-            <Route path="/diary/:id" element={<Diary/>}/>
-            <Route path="*" element={<Notfound/>}/>
-        </Routes>
+    const onDelete = (id) => {
+        dispatch({
+            type: "DELETE", data: {
+                id: id
+            }
+        });
+    }
 
+
+    return (<>
+        <DiaryStateContext.Provider value={data}>
+            <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/new" element={<New/>}/>
+                    <Route path="/diary/:id" element={<Diary/>}/>
+                    <Route path="/Edit/:id" element={<Edit/>}/>
+                    <Route path="*" element={<Notfound/>}/>
+                </Routes>
+            </DiaryDispatchContext.Provider>
+        </DiaryStateContext.Provider>
     </>);
 }
 
