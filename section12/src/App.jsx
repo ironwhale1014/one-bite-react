@@ -5,13 +5,17 @@ import Diary from "./pages/Diary.jsx";
 import New from "./pages/New.jsx";
 import Notfound from "./pages/Notfound.jsx";
 import Edit from "./pages/Edit.jsx";
-import {createContext, useContext, useReducer, useRef} from "react";
+import {createContext, useReducer, useRef} from "react";
 
 const mockData = [{
-    id: 1, createDate: new Date().getTime(), content: "1번 일기입니다.", emotionId: 1
+    id: 1, createDate: new Date("2024-7-30").getTime(), content: "1번 일기입니다.", emotionId: 1
 }, {
-    id: 2, createDate: new Date().getTime(), content: "2번 일기입니다.", emotionId: 2
-},]
+    id: 2, createDate: new Date("2024-7-31").getTime(), content: "2번 일기입니다.", emotionId: 2
+}, {
+    id: 3, createDate: new Date("2024-6-6").getTime(), content: "3번 일기입니다.", emotionId: 3
+}, {
+    id: 4, createDate: new Date("2024-8-1").getTime(), content: "4번 일기입니다.", emotionId: 4
+}]
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -26,8 +30,8 @@ const reducer = (state, action) => {
     }
 }
 
-const DiaryStateContext = createContext();
-const DiaryDispatchContext = createContext();
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 
 function App() {
