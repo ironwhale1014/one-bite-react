@@ -1,7 +1,7 @@
 import "./DiaryList.css"
 import Button from "./Button.jsx";
 import DiaryItem from "./DiaryItem.jsx";
-import {useNavigate, useNavigation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 const DiaryList = ({data}) => {
@@ -16,17 +16,9 @@ const DiaryList = ({data}) => {
 
         return data.toSorted((a, b) => {
             if (sortType === "latest") {
-                return b.createDate - a.createDate;
-            } else return a.createDate - b.createDate;
+                return Number(b.createDate) - Number(a.createDate);
+            } else return Number(a.createDate) - Number(b.createDate);
         })
-
-
-        //
-        // if (sortType === "latest") {
-        //     return data.toSorted((a, b) => b.createDate - a.createDate);
-        // } else {
-        //     return data.toSorted((a, b) => b.createDate - a.createDate);
-        // }
 
     }
 
