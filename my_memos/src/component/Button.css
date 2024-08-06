@@ -1,0 +1,13 @@
+.button {
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+
+.button_POSITIVE{
+    color: white;
+    background-color: darkgreen;
+}

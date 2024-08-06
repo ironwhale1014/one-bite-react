@@ -2,9 +2,24 @@
     display: flex;
     gap: 20px;
     border-bottom: 1px solid grey;
-    padding-bottom: 20px;
+    padding: 20px 0px;
+    align-items: center;
 }
 
 .MemoCard .memo {
     flex: 1;
+
+}
+.MemoCard .user{
+    width: 10%;
+    text-align: center;
+}
+
+.user > .header {
+    font-size: 14px;
+}
+
+.time{
+    font-size: 14px;
+    text-align: center;
 }

@@ -2,6 +2,8 @@ import './App.css'
 import List from "./component/List.jsx";
 import {createContext, useReducer} from "react";
 import mockData from "./data/MockData.jsx";
+import {Route, Routes} from "react-router-dom";
+import MemoPage from "./page/MemoPage.jsx";
 
 export const StateContext = createContext();
 
@@ -19,7 +21,10 @@ function App() {
     return (
         <div className="App">
             <StateContext.Provider value={memos}>
-                <List/>
+                <Routes>
+                    <Route path="/" element={<MemoPage/>}/>
+                </Routes>
+
             </StateContext.Provider>
         </div>
     )

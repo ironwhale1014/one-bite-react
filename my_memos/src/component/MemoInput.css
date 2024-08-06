@@ -1,0 +1,21 @@
+.MemoInput {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0px 0px 0px;
+}
+
+.MemoInput input {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.MemoInput .memo {
+    flex: 1;
+}
+
+
+.MemoInput .user{
+    width: 25%;
+}
+

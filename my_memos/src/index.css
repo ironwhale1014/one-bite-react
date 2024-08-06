@@ -1,1 +1,23 @@
-¬
+@font-face {
+    font-family: "Jalnan";
+    src: url("JalnanGothicTTF.ttf");
+}
+
+body * {
+    font-family: "Jalnan";
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    display: flex;
+}
+
+#root {
+    padding: 0px 20px;
+    min-height: 100vh;
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}

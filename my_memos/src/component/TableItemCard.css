@@ -1,0 +1,14 @@
+.table-item-card {
+    /*display: flex;*/
+}
+
+.item_memo_0 {
+    flex: 1;
+    align-items: center;
+    align-content: center;
+}
+
+.item_memo_1 {
+    width: 10%;
+    text-align: center;
+}
