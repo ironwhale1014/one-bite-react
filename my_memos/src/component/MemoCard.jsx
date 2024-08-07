@@ -2,6 +2,7 @@ import "./MemoCard.css"
 import Button from "./Button.jsx";
 import {utcToKoreanTime} from "../util/utcToKoreanTime.jsx";
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from "remark-gfm";
 
 const MemoCard = ({id, memo, name, updateAt, active}) => {
 
@@ -12,7 +13,7 @@ const MemoCard = ({id, memo, name, updateAt, active}) => {
     return (
         <div className="MemoCard">
             <section className="memo">
-                <ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {memo}
                 </ReactMarkdown>
             </section>
