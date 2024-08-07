@@ -1,7 +1,7 @@
 import "./Editor.css";
 import Button from "./Button.jsx";
 import EmotionItem from "./EmotionItem.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const emotionData = [
@@ -27,7 +27,7 @@ const emotionData = [
     },
 ]
 
-const Editor = ({onSumbit}) => {
+const Editor = ({initData, onSumbit}) => {
 
 
     const dateToString = (date) => {
@@ -70,6 +70,17 @@ const Editor = ({onSumbit}) => {
     const onSubmitButtonClick = () => {
         onSumbit(input);
     }
+
+    useEffect(() => {
+        if (initData) {
+            setInput({
+                ...initData,
+                createDate: new Date(Number(initData.createDate)),
+            })
+        }
+    }, [initData]);
+
+
     return (
         <div className="editor">
             <section className="date_section">
@@ -94,7 +105,7 @@ const Editor = ({onSumbit}) => {
                     type={"text"} placeholder="오늘은 어땠나요?"/>
             </section>
             <section className="button_section">
-                <Button onClick={()=>nav(-1)} text={"취소 하기"}/>
+                <Button onClick={() => nav(-1)} text={"취소 하기"}/>
                 <Button onClick={onSubmitButtonClick} text={"작성 완료"} type={"POSITIVE"}/>
             </section>
 
