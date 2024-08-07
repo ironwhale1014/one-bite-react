@@ -1,6 +1,7 @@
 import "./MemoCard.css"
 import Button from "./Button.jsx";
 import {utcToKoreanTime} from "../util/utcToKoreanTime.jsx";
+import ReactMarkdown from 'react-markdown'
 
 const MemoCard = ({id, memo, name, updateAt, active}) => {
 
@@ -10,7 +11,11 @@ const MemoCard = ({id, memo, name, updateAt, active}) => {
 
     return (
         <div className="MemoCard">
-            <section className="memo">{memo}</section>
+            <section className="memo">
+                <ReactMarkdown>
+                    {memo}
+                </ReactMarkdown>
+            </section>
             <section className="user">
                 {name !== '' ?
                     <div className="header">작성자</div> : <div></div>}

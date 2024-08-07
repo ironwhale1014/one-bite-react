@@ -1,6 +1,5 @@
 import Header from "../component/Header.jsx";
 import MemoInput from "../component/MemoInput.jsx";
-import TableHeader from "../component/TableHeader.jsx";
 import List from "../component/List.jsx";
 import {useContext} from "react";
 import {StateContext} from "../App.jsx";
