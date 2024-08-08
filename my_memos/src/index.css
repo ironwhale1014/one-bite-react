@@ -1,10 +1,15 @@
 @font-face {
     font-family: "Jalnan";
-    src: url("JalnanGothicTTF.ttf");
+    src: url("../public/Jalnan.ttf");
+}
+
+@font-face {
+    font-family: "Happiness";
+    src: url("../public/Happiness-Sans-Print-Regular.ttf");
 }
 
 body * {
-    font-family: "Jalnan";
+    font-family: "Happiness", "monospace";
 }
 
 html, body {

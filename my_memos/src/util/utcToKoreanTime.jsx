@@ -1,7 +1,7 @@
 import moment from "moment-timezone";
 
 export function utcToKoreanTime({utcTime}) {
-    console.log(utcTime)
+
     return {
         fullTime: moment(utcTime).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss'),
         date: moment(utcTime).tz('Asia/Seoul').format('YYYY-MM-DD'),
